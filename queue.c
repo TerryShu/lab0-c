@@ -39,7 +39,7 @@ void q_free(queue_t *q)
 {
     /* How about freeing the list elements and the strings? */
     /* Free queue structure */
-    if ( q!=NULL) {
+    if (q != NULL) {
         list_ele_t *removePtr;
         while (q->head != NULL) {
             removePtr = q->head;
@@ -48,7 +48,6 @@ void q_free(queue_t *q)
         }  // free from the head of queue
         free(q);
     }
-
 }
 
 /*
@@ -167,20 +166,19 @@ int q_size(queue_t *q)
 void q_reverse(queue_t *q)
 {
     /* You need to write the code for this function */
-    if( q!= NULL && q->size != 0 ) {
-        list_ele_t *cur = q->head; // current ptr point to queue head
-        list_ele_t *nxt = q->head->next ; // next ptr point to queue head->next
-        list_ele_t *temp ;
-        temp = q->tail; // store the address of tail
-        q->tail=q->head; // let tail pointer to head
-        q->head=temp; // let head pointer to temp(tail)
-        while( nxt!=NULL ) { // reverse middle node from orignal head
-            temp = cur ;
-            cur = nxt ;
-            nxt=nxt->next;
-            cur->next=temp;
+    if (q != NULL && q->size != 0) {
+        list_ele_t *cur = q->head;        // current ptr point to queue head
+        list_ele_t *nxt = q->head->next;  // next ptr point to queue head->next
+        list_ele_t *temp;
+        temp = q->tail;        // store the address of tail
+        q->tail = q->head;     // let tail pointer to head
+        q->head = temp;        // let head pointer to temp(tail)
+        while (nxt != NULL) {  // reverse middle node from orignal head
+            temp = cur;
+            cur = nxt;
+            nxt = nxt->next;
+            cur->next = temp;
         }
-        q->tail->next = NULL ;
+        q->tail->next = NULL;
     }
-
 }
