@@ -102,6 +102,7 @@ bool q_insert_tail(queue_t *q, char *s)
                 q->head = newh;
                 q->tail = newh;
             } else {
+                q->tail->next = newh;
                 newh->next = NULL;
                 q->tail = newh;
             }
@@ -125,12 +126,15 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
     /* You need to fix up this code. */
     if (q != NULL && q->head != NULL) {
         list_ele_t *removePtr = q->head;
-        memcpy(sp, removePtr->value,
-               bufsize);         // copy the removed string to *sp
-        sp[bufsize - 1] = '\0';  // plus a null terminator
+        if (sp != NULL) {
+            memcpy(sp, removePtr->value,
+                   bufsize);         // copy the removed string to *sp
+            sp[bufsize - 1] = '\0';  // plus a null terminator
+        }
+
         q->size--;
-        q->head = q->head->next;
-        free(removePtr);
+        q->head = q->head->next;  // move head to next node
+        free(removePtr);          // free remove node
         return true;
     }
     return false;
